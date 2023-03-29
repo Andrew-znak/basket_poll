@@ -1,6 +1,8 @@
 from telethon import TelegramClient, events
+from dotenv import load_dotenv
 import logging, re, os
 
+load_dotenv()
 api_id = os.environ['TG_API_ID']
 api_hash = os.environ['TG_API_HASH']
 client = TelegramClient('my_session', api_id, api_hash)
