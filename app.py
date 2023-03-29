@@ -11,12 +11,16 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 
 @client.on(events.NewMessage())
 async def handler(event):
-    msg = event.message.media.poll.question
-    if re.search(r'Об отмене предупрежу за два часа или штраф', msg):
-        me = await client.get_me()
-        time = re.search(r'\d\d\.\d\d', msg).group(0)
-        weekday = re.search(r'понедельник|вторник|средy|четверг|пятницу|субботу|воскресенье', msg).group(0)
-        await client.send_message('me',f"Голосование баскет на {weekday} {time} началось!")
+    try:
+        msg = event.message.media.poll.question
+        if re.search(r'Об отмене предупрежу за два часа или штраф', msg):
+            me = await client.get_me()
+            time = re.search(r'\d\d\.\d\d', msg).group(0)
+            weekday = re.search(r'понедельник|вторник|средy|четверг|пятницу|субботу|воскресенье', msg).group(0)
+            await client.send_message('me',f"Голосование баскет на {weekday} {time} началось!")
+            print('Reminder has been sent')
+    except:
+        pass
 
 
 client.start()
